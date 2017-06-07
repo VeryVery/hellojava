@@ -1,0 +1,43 @@
+subprojects {
+    group 'cn.xuantech'
+    version '1.0'
+
+    apply plugin: "maven"
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        maven {
+            url "http://maven.aliyun.com/nexus/content/groups/public"
+        }
+        mavenCentral()
+    }
+    dependencies {
+        testCompile "junit:junit:4.12"
+        testCompile "org.mockito:mockito-all:1.9.0"
+    }
+    tasks.withType(JavaCompile) { options.encoding = "UTF8" }
+}
+
+project(":common") {
+    dependencies {
+        compile "org.apache.commons:commons-lang3:3.1"
+        compile "commons-io:commons-io:2.4"
+        compile "com.google.code.gson:gson:2.7"
+        compile "com.google.guava:guava:19.0"
+        compile "org.slf4j:jul-to-slf4j:1.7.5"
+        compile "ch.qos.logback:logback-classic:1.0.13"
+        compile "org.codehaus.groovy:groovy-all:2.3.6"
+        compile "com.sparkjava:spark-core:2.5"
+    }
+}
+
+project(":thread") {
+    dependencies {
+        compile project(":common")
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+    }
+
+}
